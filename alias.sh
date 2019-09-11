@@ -1,0 +1,7 @@
+alias ls='ls --color=auto'
+alias ll='ls --color -l --time-style=long-iso'
+alias grep='grep --color=auto'
+alias mplayer='mpv --no-ytdl --no-border'
+alias nhk='ffmpeg -i http://b-nhkworldtvlive-i.akamaihd.net/hls/live/222468-b/dwstv/index_1180.m3u8 -c copy -f mpegts - | tee output.ts | mplayer -'
+alias nhk-video='mplayer https://nhkworld.webcdn.stream.ne.jp/www11/nhkworld-tv/global/263941/live_wa_s.m3u8'
+alias nhk-radio='mplayer https://nhkworld.webcdn.stream.ne.jp/www11/nhkworld-tv/global/263941/live_bg_s.m3u8'
