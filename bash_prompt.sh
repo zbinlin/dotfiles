@@ -1,12 +1,12 @@
 # From: https://github.com/jimeh/git-aware-prompt/blob/master/prompt.sh
-__find_git_branch__() {
+function __find_git_branch__() {
     # Based on: http://stackoverflow.com/a/13003854/170413
     local branch="$(git symbolic-ref --short -q HEAD 2>/dev/null || git name-rev --name-only HEAD 2>/dev/null)"
 
     if [ -n "$branch" ];
     then
-        branch="${branch/^0/}"
-        branch="${branch/~0/}"
+        branch="${branch/\^0/}"
+        branch="${branch/\~0/}"
         __git_branch__=" [$branch]"
         if [ -n "$(git status --porcelain 2> /dev/null)" ];
         then
@@ -17,7 +17,7 @@ __find_git_branch__() {
     fi
 }
 
-__set_ps1__() {
+function __set_ps1__() {
     __find_git_branch__
 
     local default_padding_length=5
@@ -58,10 +58,17 @@ __set_ps1__() {
 
     if [ $length -ge $max ];
     then
-        export PS1="${GREY}┌${AQUA}${USER}${GREY}@${AQUA}${HOSTNAME}${WHITE} ${BOLD}${pwd}${RESET}${LIME}${__git_branch__}\n${GREY}└${WHITE}\$${NO_COLOR} "
+        export PS1="${GREY}┌${AQUA}${USER}${GREY}@${AQUA}${HOSTNAME}${WHITE} ${BOLD}${pwd}${RESET}${LIME}${__git_branch__}\n${GREY}└${WHITE}\$${RESET} "
     else
-        export PS1="${GREY}›${AQUA}${USER}${GREY}@${AQUA}${HOSTNAME}${WHITE} ${BOLD}${pwd}${RESET}${LIME}${__git_branch__}${WHITE} \$${NO_COLOR} "
+        export PS1="${GREY}›${AQUA}${USER}${GREY}@${AQUA}${HOSTNAME}${WHITE} ${BOLD}${pwd}${RESET}${LIME}${__git_branch__}${WHITE} \$${RESET} "
     fi
+
+    local curpos
+    stty -echo
+    echo -en '\033[6n'
+    IFS=';' read -d R -a curpos
+    stty echo
+    (( curpos[1] > 1 )) && echo -e '\033[1;35m⮒\033[0m'
 }
 
 PROMPT_COMMAND="__set_ps1__; $PROMPT_COMMAND"
