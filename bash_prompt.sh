@@ -25,7 +25,6 @@ function __set_ps1__() {
     local hostname_length=${#HOSTNAME}
     local pwd=${PWD/#$HOME/\~}
     local pwd_length=${#pwd}
-    local git_branch_length=${#__git_branch__}
 
     local    RESET="\[$(tput sgr0    )\]"
     local     BOLD="\[$(tput bold    )\]"
@@ -52,9 +51,23 @@ function __set_ps1__() {
         __git_branch__=$(echo "$__git_branch__" | sed "s/\[\(.\+\)\]/${FUCHSIA//\\/\\\\}[${LIME//\\/\\\\}\1${FUCHSIA//\\/\\\\}]/")
         __git_branch__="${__git_branch__/\*/$RED\*}"
     fi
+    local git_branch_length=${#__git_branch__}
 
-    local length=$(($default_padding_length + $username_length + $hostname_length + $pwd_length))
-    local max=$(($COLUMNS / 3))
+    local length=$(($default_padding_length + $username_length + $hostname_length + $pwd_length + $git_branch_length))
+    local factor
+    if [ $COLUMNS -le 80 ];
+    then
+        factor=2
+    elif [ $COLUMNS -le 120 ];
+    then
+        factor=3
+    elif [ $COLUMNS -le 160 ];
+    then
+        factor=5
+    else
+        factor=8
+    fi
+    local max=$(($COLUMNS - $COLUMNS / $factor))
 
     if [ $length -ge $max ];
     then
