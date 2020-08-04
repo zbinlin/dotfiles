@@ -14,7 +14,4 @@ fi
 DIR=$(dirname $(readlink -f ${BASH_SOURCE:-$0}))
 . $DIR/env
 
-if command -v tmpdisk >/dev/null 2>&1;
-then
-    tmpdisk
-fi
+$DIR/tmpdisk.sh "${HOME}/tmp"
