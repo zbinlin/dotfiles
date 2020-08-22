@@ -1,6 +1,6 @@
 #
 # ~/.bashrc
-# source <<DIR>>/.dotfiles/bashrc.sh
+# source <<REPO_DIR>>/bashrc.sh
 #
 
 # If not running interactively, don't do anything

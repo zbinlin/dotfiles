@@ -17,5 +17,5 @@ if [ ! $(mount -l | awk '{ print $3 }' | grep "$TEMP_DIR") ]; then
     # 里改成 tmpfs
     #sudo mount -t ramfs ramfs_tmp $TEMP_DIR
     sudo mount -o mode=0755,nosuid,nodev,uid=$(id -u ${USER}),gid=$(id -g ${USER}) \
-               -t tmpfs none $TEMP_DIR
+               -t tmpfs tmpfs $TEMP_DIR
 fi
