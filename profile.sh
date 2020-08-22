@@ -1,6 +1,6 @@
 #
 # ~/.profile
-# source <<DIR>>/.dotfiles/profile.sh
+# source <<REPO_DIR>>/profile.sh
 #
 
 set -e
@@ -12,6 +12,6 @@ then
 fi
 
 DIR=$(dirname $(readlink -f ${BASH_SOURCE:-$0}))
-. $DIR/env
+. $DIR/profile_env
 
 $DIR/tmpdisk.sh "${HOME}/tmp"
