@@ -6,8 +6,7 @@
 DIR=$(dirname $(readlink -f ${BASH_SOURCE:-$0}))
 . $DIR/profile_env
 
-append_paths=$(
-cat <<-EOF |
+append_paths=$(cat <<-EOF |
     ${HOME}/.local/bin
     ${CARGO_HOME:-${HOME}/.cargo}/bin
 EOF
@@ -17,8 +16,7 @@ do
     then
         printf "$pth:"
     fi
-done
-)
+done)
 PATH="${append_paths}${PATH}"
 
 $DIR/tmpdisk.sh "${HOME}/tmp"
