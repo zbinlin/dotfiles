@@ -15,6 +15,9 @@ export TMUX_TMPDIR=${TMUX_TMPDIR:-${XDG_RUNTIME_DIR}}
 export NPM_CONFIG_USERCONFIG=${NPM_CONFIG_USERCONFIG:-${XDG_CONFIG_HOME}/npm/npmrc}
 export N_PREFIX=${N_PREFIX:-${HOME}/.local}
 
+export RUSTUP_HOME=${RUSTUP_HOME:-${XDG_CONFIG_HOME}/rustup}
+export CARGO_HOME=${CARGO_HOME:-${XDG_CONFIG_HOME}/cargo}
+
 unset SSH_AGENT_PID
 if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
     export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
