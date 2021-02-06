@@ -1,6 +1,5 @@
-#
-# ~/.profile or ~/.zprofile
-# source <<REPO_DIR>>/profile.sh
+# ~/.bashrc or ~/.zshrc
+# source <<REPO_DIR>>/rc.sh
 #
 
 # If not running interactively, don't do anything
@@ -24,26 +23,23 @@ __base_dir__=$(dirname ${__self__})
 __functions_dir__="${__base_dir__}/functions"
 __function_prefix__="${__functions_dir__}/${__shell__}"
 
-. ${__functions_dir__}/profile.env
+[[ -f "${__function_prefix__}rc.sh" ]] && . ${__function_prefix__}rc.sh
+[[ -f "${__function_prefix__}-prompt.sh" ]] && . ${__function_prefix__}-prompt.sh
 
-__append_paths__=$(cat <<-EOF |
-    ${HOME}/.local/bin
-    ${CARGO_HOME:-${HOME}/.cargo}/bin
-EOF
-while read -r pth || [ -n "$pth" ];
-do
-    if [ -d "${pth}" ] && echo ${PATH} | awk -v p=${pth} 'BEGIN { RS=":" } ($0 == p) { exit 1 }';
-    then
-        printf "$pth:"
-    fi
-done)
-PATH="${__append_paths__}${PATH}"
+. ${__functions_dir__}/alias.sh
 
-${__functions_dir__}/tmpdisk.sh "${HOME}/tmp"
+# GnuPG agent
+# Should creating ~/.local/share/gnupg directory before
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+if [ -z "$XZ_OPT" ];
+then
+    export XZ_OPT='-eT0'
+fi
 
 unset __shell__
 unset __self__
 unset __base_dir__
 unset __functions_dir__
 unset __function_prefix__
-unset __append_paths__

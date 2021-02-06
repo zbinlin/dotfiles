@@ -2,8 +2,15 @@
 
 if [ $# -lt 1 ];
 then
-    echo "\
-Usage: $0 TEMP_DIR_PATH" >&2
+    cat >&2 <<-EOF
+Usage: $0 TEMP_DIR_PATH
+EOF
+    exit 1
+fi
+
+if ! command -v sudo >/dev/null || ! command -v mount >/dev/null;
+then
+    echo "Command sudo or mount not found!" >&2
     exit 1
 fi
 

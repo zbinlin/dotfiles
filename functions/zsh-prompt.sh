@@ -80,6 +80,9 @@ function __set_ps1__() {
 
 PROMPT_COMMAND="__set_ps1__; $PROMPT_COMMAND"
 
-prompt off
+if command -v prompt >/dev/null;
+then
+    prompt off
+fi
 prmptcmd() { eval "$PROMPT_COMMAND" }
 precmd_functions=(prmptcmd)
