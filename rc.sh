@@ -23,20 +23,11 @@ __base_dir__=$(dirname ${__self__})
 __functions_dir__="${__base_dir__}/functions"
 __function_prefix__="${__functions_dir__}/${__shell__}"
 
-[[ -f "${__function_prefix__}rc.sh" ]] && . ${__function_prefix__}rc.sh
-[[ -f "${__function_prefix__}-prompt.sh" ]] && . ${__function_prefix__}-prompt.sh
+[[ -f "${__function_prefix__}rc" ]] && . ${__function_prefix__}rc
+[[ -f "${__function_prefix__}.prompt.sh" ]] && . ${__function_prefix__}.prompt.sh
 
 . ${__functions_dir__}/alias.sh
-
-# GnuPG agent
-# Should creating ~/.local/share/gnupg directory before
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
-
-if [ -z "$XZ_OPT" ];
-then
-    export XZ_OPT='-eT0'
-fi
+. ${__functions_dir__}/common.rc.sh
 
 unset __shell__
 unset __self__
