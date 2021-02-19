@@ -3,9 +3,6 @@
 # source <<REPO_DIR>>/profile.sh
 #
 
-# If not running interactively, don't do anything
-[[ $- != *i* ]] && return
-
 __shell__=$(basename $(readlink /proc/$$/exe))
 case ${__shell__} in
     sh | dash | bash)
