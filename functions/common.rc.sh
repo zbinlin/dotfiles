@@ -1,7 +1,10 @@
 # GnuPG agent
 # Should creating ~/.local/share/gnupg directory before
-export GPG_TTY=$(tty)
-gpg-connect-agent updatestartuptty /bye >/dev/null
+if command -v gpg-connect-agent >/dev/null;
+then
+    export GPG_TTY=$(tty)
+    gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
 
 
 # XZ
