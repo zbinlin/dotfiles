@@ -1,6 +1,14 @@
 # dotfiles
 
-## Profile (~/.profile or ~/.zprofile)
+## Prepare
+
+Create user XDG directories
+
+```sh
+mkdir -p .{local/share/gnupg,config,cache}
+```
+
+## Profile ($HOME/.profile or $HOME/.zprofile)
 
 ### Requirements
 
@@ -11,15 +19,15 @@
 ### Source
 
 ```sh
-[[ ~/.dotfiles/profile.sh ]] && ~/.dotfiles/profile.sh
+[[ $HOME/.dotfiles/profile.sh ]] && . $HOME/.dotfiles/profile.sh
 ```
 
 
-## Rc (~/.bashrc or ~/.zshrc)
+## Rc ($HOME/.bashrc or $HOME/.zshrc)
 
 
 ### Source
 
 ```sh
-[[ ~/.dotfiles/rc.sh ]] && ~/.dotfiles/rc.sh
+[[ $HOME/.dotfiles/rc.sh ]] && . $HOME/.dotfiles/rc.sh
 ```
